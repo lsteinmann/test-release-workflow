@@ -1,6 +1,9 @@
 name: New Release
 on: 
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}  
@@ -23,4 +26,6 @@ jobs:
           path: build/file.txt
           
       - name: Create the new release
-        run: gh release create v1.0.0 '/build/file.txt#Released File'
+        run: | 
+          ls
+          gh release create v1.0.0 'build/file.txt#Released File'
