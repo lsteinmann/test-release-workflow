@@ -28,4 +28,4 @@ jobs:
       - name: Create the new release
         run: | 
           ls
-          gh release create v1.0.1 'build/file.txt#Released File'
+          gh release create --generate-notes 'build/file.txt#Released File'
