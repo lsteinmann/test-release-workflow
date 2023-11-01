@@ -34,14 +34,14 @@ jobs:
           git add .
           git status
           git commit -m "auto-update something"
-          git push -d origin update-out
-          git push origin main:update-out
+          git push -d origin update
+          git push origin main:update
 
       - name: Pull Request for Update
-        run: gh pr create -B main -H update-out --title "Update $(date +'%d. %B %Y')" --body "Created by Github action ${{ github.workflow	}}"
+        run: gh pr create -B main -H update --title "Update $(date +'%d. %B %Y')" --body "Created by Github action ${{ github.workflow	}}"
 
       - name: Add log a comment
-        run: gh pr comment update-out --body-file "build/test_comment.txt"
+        run: gh pr comment update --body-file "build/test_comment.txt"
           
       - name: Create the new release
         run: | 
