@@ -24,8 +24,27 @@ jobs:
         with:
           name: Artifacts
           path: build/file.txt
+
+      - name: Commit the changes to update_out
+        run: |
+          date > build/auto_gen_date_bib.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git status
+          git add .
+          git status
+          git commit -m "auto-update something"
+          git push -d origin update-out
+          git push origin main:update-out
+
+      - name: Pull Request for Update
+        run: gh pr create -B main -H update-out --title "Update $(date +'%d. %B %Y')" --body "Created by Github action ${{ github.workflow	}}"
+
+      - name: Add log a comment
+        run: gh pr comment update-out --body-file "build/test_comment.txt"
           
       - name: Create the new release
         run: | 
           ls
           gh release create $(cat version.txt) --generate-notes 'build/file.txt#Released File'
+
